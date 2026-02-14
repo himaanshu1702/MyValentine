@@ -1,0 +1,484 @@
+/* --- Color Palette --- */
+:root {
+    --electric-purple: #7B1FA2;
+    --hot-pink: #FF007F;
+    --neon-coral: #FF6F61;
+    --midnight-navy: #252850;
+    --soft-lavender: #D5A7E7;
+    --white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    /* Rich Animated Background */
+    background: linear-gradient(135deg, var(--electric-purple), var(--soft-lavender), var(--electric-purple));
+    background-size: 200% 200%;
+    animation: gradientBG 15s ease infinite;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: var(--white);
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- Main Layout Container --- */
+.main-container {
+    width: 90%;
+    max-width: 1000px;
+    text-align: center;
+    position: relative;
+    /* Height and Flexbox ensure perfect centering and spacing */
+    height: 90vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10; 
+}
+
+/* --- Floating Rose Petals --- */
+#petalContainer {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.petal {
+    position: absolute;
+    background-color: #ff004f;
+    border-radius: 150% 0 150% 0;
+    animation: fall linear forwards;
+    opacity: 0.8;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg) translateX(0px); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg) translateX(100px); opacity: 0; }
+}
+
+/* --- Stage Transitions --- */
+.stage {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Start slightly lower for a nice 'float up' effect */
+    transform: translateY(20px) scale(0.95);
+}
+
+.stage.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50px) scale(1); /* Lifted up slightly for visual balance */
+    z-index: 20;
+}
+
+/* --- Premium Glass Cards --- */
+.glass-card {
+    /* Dark semi-transparent Navy for contrast against light background */
+    background: rgba(37, 40, 80, 0.85); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 50px;
+    
+    /* Beautiful soft shadow */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    
+    /* Gap between this card and whatever is below it (like the gifts) */
+    margin-bottom: 60px; 
+}
+
+/* --- Typography --- */
+.sub-text {
+    font-size: 0.9rem;
+    color: var(--soft-lavender);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.main-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--white);
+    /* Subtle shadow to make text pop */
+    text-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    line-height: 1.2;
+}
+
+.secondary-title {
+    font-size: 2.2rem;
+    color: var(--white);
+    margin: 0;
+}
+
+/* --- Romantic Message (Stage 2) --- */
+.romantic-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4.5rem;
+    color: var(--white);
+    margin-bottom: 25px;
+    text-shadow: 0 0 15px rgba(255, 111, 97, 0.6);
+}
+
+.reveal-text {
+    font-size: 1.6rem;
+    opacity: 0; 
+    animation: fadeInText 2s ease forwards;
+    animation-delay: 2.5s; 
+    color: #e0e0e0;
+}
+
+.reveal-text span.highlight {
+    color: var(--hot-pink);
+    font-weight: 700;
+    font-size: 2rem;
+    text-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+}
+
+@keyframes fadeInText {
+    to { opacity: 1; }
+}
+
+/* --- Buttons --- */
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 10px;
+    position: relative;
+    height: 80px;
+}
+
+.btn {
+    padding: 16px 50px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    letter-spacing: 1px;
+}
+
+/* YES Button */
+.btn-primary {
+    background: linear-gradient(45deg, var(--hot-pink), #e91e63);
+    color: white;
+    box-shadow: 0 10px 30px rgba(255, 0, 127, 0.4);
+}
+.btn-primary:hover {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 20px 40px rgba(255, 0, 127, 0.6);
+}
+
+/* NO Button - VISIBILITY FIXED */
+.btn-secondary {
+    background: var(--midnight-navy); /* Solid Dark Blue */
+    border: 2px solid var(--midnight-navy);
+    color: var(--white); 
+    position: absolute; 
+    left: 60%; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+}
+
+.btn-secondary:hover {
+    background: #1a1c3a; 
+    transform: scale(1.05);
+}
+
+/* --- Gifts Grid (Stage 3) --- */
+.gifts-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.gift-card {
+    /* Crisp White Glass look for the gifts */
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    /* Layout positioning */
+    position: absolute; 
+    width: 220px;
+    height: 260px;
+    
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15); /* Nice shadow depth */
+}
+
+/* Positioning the 4 cards neatly */
+.gift-card:nth-child(1) { left: 0; }
+.gift-card:nth-child(2) { left: 260px; }
+.gift-card:nth-child(3) { right: 260px; }
+.gift-card:nth-child(4) { right: 0; }
+
+/* Mobile fallback for grid */
+@media (max-width: 1100px) {
+    .gifts-grid { height: auto; display: flex; flex-wrap: wrap; justify-content: center; }
+    .gift-card { position: relative; margin: 10px; left: auto !important; right: auto !important; }
+}
+
+.gift-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border-bottom: 4px solid var(--soft-lavender);
+    transition: transform 0.5s ease;
+}
+
+.gift-info h3 {
+    padding: 15px;
+    font-size: 1.1rem;
+    color: var(--midnight-navy); 
+    font-weight: 700;
+}
+
+/* Hover Effects for Gifts */
+.gift-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+.gift-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Real Gift (Date Night) Special Hover */
+#realGift:hover {
+    border: 2px solid var(--hot-pink);
+    box-shadow: 0 25px 50px rgba(255, 0, 127, 0.3);
+}
+
+/* --- Stage 4 (Date Confirmation) Special Styles --- */
+.glow-effect {
+    /* Romantic Pink Glow */
+    box-shadow: 0 0 60px rgba(255, 0, 127, 0.4), 
+                inset 0 0 30px rgba(255, 0, 127, 0.1);
+    border: 1px solid rgba(255, 0, 127, 0.4);
+    padding: 60px;
+}
+
+.pulse-icon {
+    margin-bottom: 30px;
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    15% { transform: scale(1.3); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+    60% { transform: scale(1); }
+}
+
+.final-message {
+    font-size: 1.3rem;
+    color: #f0f0f0;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+
+.script-font {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.8rem;
+    color: var(--soft-lavender);
+    display: block;
+    margin-top: 20px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* --- Angry Overlay (Original Dark Theme) --- */
+.overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(37, 40, 80, 0.95);
+    z-index: 100;
+    display: flex; justify-content: center; align-items: center;
+    transition: opacity 0.3s;
+}
+.overlay.hidden { opacity: 0; pointer-events: none; }
+
+.angry-card {
+    background-color: var(--midnight-navy) !important; 
+    border: 4px solid var(--hot-pink) !important;
+    max-width: 500px;
+    backdrop-filter: none; 
+    box-shadow: 0 0 80px rgba(0,0,0,0.8);
+    margin-bottom: 0; 
+}
+.angry-card h2 { color: var(--white); margin-bottom: 15px; font-size: 1.5rem; }
+.angry-card p { color: var(--soft-lavender); margin-top: 15px; font-style: italic; }
+.baby-img { 
+    width: 200px; height: 200px; 
+    border-radius: 50%; object-fit: cover; 
+    border: 5px solid var(--hot-pink); 
+    margin-bottom: 25px; 
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+}
+.small-btn { margin-top: 25px; padding: 12px 35px; font-size: 1rem; }
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .main-title { font-size: 2.2rem; }
+    .romantic-text { font-size: 3rem; }
+    .gifts-grid { display: flex; flex-direction: column; height: auto; }
+    .gift-card { position: relative; width: 100%; left: auto !important; right: auto !important; margin-bottom: 20px; }
+    .btn-secondary { position: relative; left: auto; }
+    .glass-card { padding: 30px; margin-bottom: 30px; }
+}
+
+/* --- Floating Music Button --- */
+.music-btn {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 1000; /* Always on top */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1); /* Glassy look */
+    border: 2px solid var(--soft-lavender);
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Style for when music is playing */
+.music-btn.playing {
+    background: var(--hot-pink);
+    border-color: var(--hot-pink);
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+    animation: rotateMusic 4s linear infinite; /* Spin effect */
+}
+
+@keyframes rotateMusic {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Hide music button on small mobile screens if it covers text */
+@media (max-width: 500px) {
+    .music-btn {
+        width: 40px; height: 40px; font-size: 1rem; top: 15px; right: 15px;
+    }
+}
+/* --- Typewriter Lyric Animation --- */
+.lyric-container {
+    display: inline-block; /* Keeps the box tight to the text */
+    margin-top: 40px;
+}
+
+/* --- Typewriter Lyric Animation --- */
+.lyric-container {
+    display: inline-block;
+    margin-top: 30px; /* Reduced spacing slightly */
+}
+
+.typewriter-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    color: var(--white);
+    letter-spacing: 2px;
+    font-style: italic;
+    
+    /* Setup for Typewriter */
+    overflow: hidden; 
+    border-right: 3px solid var(--hot-pink); 
+    white-space: nowrap; 
+    margin: 0 auto;
+    
+    /* Initial State: Hidden */
+    opacity: 0;
+    width: 0;
+    
+    /* UPDATED ANIMATIONS: 
+       Changed delay from 5s to 0.5s so it starts IMMEDIATELY 
+    */
+    animation: 
+        showText 1s forwards 1s,
+        typewriter 3.5s steps(40, end) 1s forwards,
+        blinkCursor 0.75s step-end infinite;
+}
+
+/* Make text visible */
+@keyframes showText {
+    to { opacity: 1; }
+}
+
+/* The Typing Effect */
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* The Blinking Cursor Effect */
+@keyframes blinkCursor {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--hot-pink); }
+}
+
+/* Mobile Adjustment */
+@media (max-width: 600px) {
+    .typewriter-text { font-size: 0.9rem; letter-spacing: 1px; }
+}
+
+/* Make text visible at 5 seconds */
+@keyframes showText {
+    to { opacity: 1; }
+}
+
+/* The Typing Effect */
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* The Blinking Cursor Effect */
+@keyframes blinkCursor {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--hot-pink); }
+}
+
+/* Mobile Adjustment: Make font smaller so it fits on one line */
+@media (max-width: 600px) {
+    .typewriter-text { font-size: 0.9rem; letter-spacing: 1px; }
+}

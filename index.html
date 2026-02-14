@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Valentine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="celebrationSound" src="assets/celebration.mp3" preload="auto"></audio>
+
+    <audio id="bgMusic" src="assets/song.mp3" loop></audio>
+
+    <audio id="angrySound" src="assets/angry.mp3" preload="auto"></audio>
+
+    <button id="musicControl" class="music-btn">
+        <i class="fa-solid fa-music"></i>
+    </button>
+
+    <div id="petalContainer"></div>
+
+    <div class="main-container">
+        
+        <div class="stage active" id="stage1">
+            <div class="glass-card header-card">
+                <h3 class="sub-text">Hey Beautiful</h3>
+                <h1 class="main-title">Will you be my Valentine?</h1>
+            </div>
+            
+            <div class="buttons-container">
+                <button id="yesBtn" class="btn btn-primary">YES! <i class="fa-solid fa-heart"></i></button>
+                <button id="noBtn" class="btn btn-secondary">No</button>
+            </div>
+        </div>
+
+        <div class="stage" id="stage2">
+             <div class="glass-card message-card animated-border">
+                <h1 class="romantic-text">
+                    You are so lucky to have me...
+                </h1>
+                <div class="reveal-text">
+                    <span>Wait, oops!</span><br>
+                    I mean... <span class="highlight">I am the luckiest</span> to have YOU! ❤️
+                </div>
+                
+                <div class="lyric-container">
+                    <p class="typewriter-text">I just had to let you know you're mine...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stage" id="stage3">
+            <div class="glass-card header-card custom-margin">
+                <h2 class="secondary-title">What would you like, my love?</h2>
+            </div>
+            
+            <div class="gifts-grid">
+                <div class="gift-card tricky-gift">
+                    <img src="assets/ring.jpg" alt="Diamond Ring" onerror="this.src='https://source.unsplash.com/featured/?diamond,ring'">
+                    <div class="gift-info"><h3>Diamond Ring</h3></div>
+                </div>
+                <div class="gift-card tricky-gift">
+                    <img src="assets/necklace.jpg" alt="Diamond Necklace" onerror="this.src='https://source.unsplash.com/featured/?diamond,necklace'">
+                    <div class="gift-info"><h3>Diamond Necklace</h3></div>
+                </div>
+                <div class="gift-card tricky-gift">
+                    <img src="assets/shopping.jpg" alt="Shopping Spree" onerror="this.src='https://source.unsplash.com/featured/?shopping,bags'">
+                    <div class="gift-info"><h3>Shopping Spree</h3></div>
+                </div>
+                <div class="gift-card" id="realGift">
+                    <img src="assets/date-night.jpg" alt="Date Night" onerror="this.src='https://source.unsplash.com/featured/?dinner,date,romantic'">
+                    <div class="gift-info"><h3>Date Night</h3></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stage" id="stage4">
+            <div class="glass-card final-card glow-effect">
+                <div class="pulse-icon">
+                    <i class="fa-solid fa-heart fa-4x" style="color: var(--hot-pink);"></i>
+                </div>
+                
+                <h1 class="main-title">It's a Date! 🥂</h1>
+                
+                <p class="final-message">
+                    I knew you'd say yes! You are the best thing that ever happened to me.
+                    <br><br>
+                    <span class="script-font">I can't wait to celebrate our love.</span>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="angryOverlay" class="overlay hidden">
+        <div class="glass-card angry-card">
+            <img src="assets/angry-baby.png" alt="Angry Cute Baby" class="baby-img" onerror="this.src='https://i.pinimg.com/originals/56/f0/c7/56f0c7de578908f192975c025c60dc79.jpg'">
+            <h2>AA Pagal Aurat tuja pata hai tu kya bol rahi hai !!</h2>
+            <h2>If you try to select 'No' one more time...</h2>
+            <h1 style="color: var(--hot-pink);">I WILL SHOOT YOU! <i class="fa-solid fa-gun"></i></h1>
+             <p>(with love kisses of course... but seriously, click yes)</p>
+             <button id="closeOverlay" class="btn btn-primary small-btn">Okay, I'm sorry!</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
