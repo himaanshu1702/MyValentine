@@ -93,12 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if(noClickCount > noThreshold) {
                 angryOverlay.classList.remove('hidden');
                 
-                // Play Angry Sound
+                // Play Angry Sound (Force Load First)
                 const angrySound = document.getElementById('angrySound');
-                angrySound.volume = 1.0; // Max volume for effect
-                angrySound.play().catch(e => console.log("Sound blocked"));
+                if(angrySound) {
+                    angrySound.load(); // <--- THIS LINE HELPS
+                    angrySound.volume = 1.0;
+                    angrySound.play().catch(e => console.log("Sound blocked by browser"));
+                }
                 
-                // Optional: Pause the romantic music if it's playing
+                // Pause romantic music
                 const bgMusic = document.getElementById('bgMusic');
                 if(bgMusic) bgMusic.pause();
 
@@ -193,33 +196,38 @@ document.addEventListener('DOMContentLoaded', () => {
             musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
         }
     });
-
 });
-// --- AUDIO UNLOCKER ---
-// This forces the browser to allow the angry sound to play later
-document.body.addEventListener('click', function() {
+
+
+// --- ULTIMATE AUDIO UNLOCKER ---
+// This runs on click, touch, OR mouse movement to unlock sound as early as possible
+function unlockAudio() {
     const angrySound = document.getElementById('angrySound');
     const celebrationSound = document.getElementById('celebrationSound');
     const bgMusic = document.getElementById('bgMusic');
 
-    // Unlock Angry Sound
-    if(angrySound) {
-        angrySound.muted = true; // Mute so it doesn't make noise now
-        angrySound.play().then(() => {
-            angrySound.pause();
-            angrySound.currentTime = 0;
-            angrySound.muted = false; // Unmute for later
-        }).catch(e => console.log("Audio unlock failed", e));
-    }
-    
-    // Unlock Celebration Sound
-     if(celebrationSound) {
-        celebrationSound.muted = true; 
-        celebrationSound.play().then(() => {
-            celebrationSound.pause();
-            celebrationSound.currentTime = 0;
-            celebrationSound.muted = false; 
-        }).catch(e => console.log("Celebration unlock failed", e));
-    }
+    // Helper function to silently play and pause
+    const silentPlay = (audio) => {
+        if(audio) {
+            audio.muted = true; // Mute so it's silent
+            audio.play().then(() => {
+                audio.pause(); 
+                audio.currentTime = 0;
+                audio.muted = false; // Unmute for real use
+            }).catch(e => console.log("Audio unlock waiting for interaction"));
+        }
+    };
 
-}, { once: true }); // This runs only ONCE on the first click
+    silentPlay(angrySound);
+    silentPlay(celebrationSound);
+    
+    // Remove the listeners once unlocked so we don't spam
+    document.body.removeEventListener('click', unlockAudio);
+    document.body.removeEventListener('touchstart', unlockAudio);
+    // Note: Most browsers still require a CLICK, but we try everything
+}
+
+// Listen for ANY interaction
+document.body.addEventListener('click', unlockAudio);
+document.body.addEventListener('touchstart', unlockAudio);
+document.body.addEventListener('keydown', unlockAudio);
