@@ -193,4 +193,33 @@ document.addEventListener('DOMContentLoaded', () => {
             musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
         }
     });
+
 });
+// --- AUDIO UNLOCKER ---
+// This forces the browser to allow the angry sound to play later
+document.body.addEventListener('click', function() {
+    const angrySound = document.getElementById('angrySound');
+    const celebrationSound = document.getElementById('celebrationSound');
+    const bgMusic = document.getElementById('bgMusic');
+
+    // Unlock Angry Sound
+    if(angrySound) {
+        angrySound.muted = true; // Mute so it doesn't make noise now
+        angrySound.play().then(() => {
+            angrySound.pause();
+            angrySound.currentTime = 0;
+            angrySound.muted = false; // Unmute for later
+        }).catch(e => console.log("Audio unlock failed", e));
+    }
+    
+    // Unlock Celebration Sound
+     if(celebrationSound) {
+        celebrationSound.muted = true; 
+        celebrationSound.play().then(() => {
+            celebrationSound.pause();
+            celebrationSound.currentTime = 0;
+            celebrationSound.muted = false; 
+        }).catch(e => console.log("Celebration unlock failed", e));
+    }
+
+}, { once: true }); // This runs only ONCE on the first click
